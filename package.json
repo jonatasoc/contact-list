@@ -24,6 +24,7 @@
     "sweetalert2": "^10.16.7",
     "sweetalert2-react-content": "^3.3.2",
     "typescript": "^4.1.2",
+    "uuid": "^8.3.2",
     "web-vitals": "^1.0.1",
     "yup": "^0.32.9"
   },
