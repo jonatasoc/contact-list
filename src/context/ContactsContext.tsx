@@ -13,7 +13,7 @@ interface AuthContextData {
   contacts: UserInfo[];
   removeContact(contactId: number): void;
   addContact(contact: UserInfo): void;
-  updateContact(contact: UserInfo, contactId: number): void;
+  updateContact(contact: UserInfo): void;
 }
 
 export const ContactsContext = createContext<AuthContextData>(
@@ -65,9 +65,12 @@ const ContactsProvider: React.FC = ({ children }) => {
         contact => contact.email === newContact.email,
       );
 
-      if (existentEmail) {
+      if (existentEmail.length > 0) {
         throw new Error('Email already exists');
       }
+
+      // eslint-disable-next-line no-param-reassign
+      newContact.id = contacts.length + 1;
 
       contacts.push(newContact);
 
@@ -108,22 +111,24 @@ const ContactsProvider: React.FC = ({ children }) => {
     }
   }, []);
 
-  const updateContact = useCallback((contactNewInfo, contactId) => {
+  const updateContact = useCallback(contactNewInfo => {
     try {
       const contacts: UserInfo[] = JSON.parse(
         localStorage.getItem('@ContactList: contacts') || '[]',
       );
+      console.log(contacts);
+      let contactToEdit = contacts.filter(
+        contact => contact.id === contactNewInfo.id,
+      );
 
-      let contactToEdit = contacts.filter(contact => contact.id === contactId);
-
-      contactToEdit = { ...contactToEdit, ...contactNewInfo };
+      contactToEdit = { ...contactNewInfo };
 
       localStorage.setItem(
         '@ContactList: contacts',
         JSON.stringify({ ...contacts, contactToEdit }),
       );
 
-      setData([...contacts, ...contactToEdit]);
+      setData([...contacts, ...contactNewInfo]);
     } catch (err) {
       throw new Error(err);
     }
