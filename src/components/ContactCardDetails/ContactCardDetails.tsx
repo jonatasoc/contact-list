@@ -27,7 +27,6 @@ const ContactCardDetails: React.FC = () => {
   const { contacts } = useContactsContext();
 
   useEffect(() => {
-    console.log(contacts);
     const findedContact = contacts.find(item => String(item.id) === id);
 
     if (!findedContact) return;
