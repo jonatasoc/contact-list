@@ -8,9 +8,9 @@ import ContactEdit from './pages/ContactEdit';
 const Routes: React.FC = () => {
   return (
     <Switch>
+      <Route exact path="/contact/add" component={ContactAdd} />
       <Route exact path="/contact/edit/:id" component={ContactEdit} />
       <Route exact path="/contact/:id" component={ContactCardDetails} />
-      <Route exact path="/contact/add" component={ContactAdd} />
       <Route exact path="/" component={ContactList} />
     </Switch>
   );
