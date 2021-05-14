@@ -1,49 +1,39 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
 
-import { Container, UserAvatar, UserName } from './ContactCard.styles';
+import {
+  Container,
+  UserAvatar,
+  UserName,
+  CardActions,
+  EditIcon,
+  DeleteIcon,
+} from './ContactCard.styles';
 
-const useStyles = makeStyles({
-  root: {
-    minWidth: 275,
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-});
+interface ContactCardProp {
+  contact: { id: number; name: string; picture: string };
+}
 
-const img = 'https://avatars.githubusercontent.com/u/16616459?v=4';
-
-const ContactCard: React.FC = () => {
-  const classes = useStyles();
-
+const ContactCard: React.FC<ContactCardProp> = ({ contact }) => {
   return (
-    <Container className={classes.root}>
-      <CardContent>
-        <UserAvatar src={img} alt="Jonatas de Oliveira Coelho" />
-        <UserName>Jonatas de Oliveira Coelho</UserName>
-        <Typography className={classes.pos} color="textSecondary">
-          <strong>Contact: </strong> 55 61981200652
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          <strong>Email: </strong> jonatas.oliveiracoelho@gmail.com
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
+    <Container>
+      <Link to={`/contact/${contact.id}`}>
+        <div>
+          <UserAvatar src={contact.picture} alt={contact.name} />
+          <UserName>{contact.name}</UserName>
+        </div>
+        <CardActions>
+          <Link to={`/contact/edit/${contact.id}`}>
+            <Button size="small">
+              <EditIcon size={20} />
+            </Button>
+          </Link>
+          <Button size="small">
+            <DeleteIcon size={20} />
+          </Button>
+        </CardActions>
+      </Link>
     </Container>
   );
 };
