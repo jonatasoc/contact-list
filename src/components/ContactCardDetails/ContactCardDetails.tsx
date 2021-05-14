@@ -13,7 +13,7 @@ import {
 import { useContactsContext } from '../../context/ContactsContext';
 
 interface ContactInfo {
-  id: number;
+  id: string;
   name: string;
   contact: string;
   email: string;
@@ -27,7 +27,7 @@ const ContactCardDetails: React.FC = () => {
   const { contacts } = useContactsContext();
 
   useEffect(() => {
-    const findedContact = contacts.find(item => String(item.id) === id);
+    const findedContact = contacts.find(item => item.id === id);
 
     if (!findedContact) return;
 

@@ -3,15 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import { MdModeEdit, MdSave } from 'react-icons/md';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import {
-  Button,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -21,16 +13,11 @@ import {
   EditAvatarContainer,
   AvatarInputButton,
   UserAvatar,
-  UserName,
-  UserContactDetails,
-  UserInfo,
   ButtonsContainer,
   BackButton,
-  SaveButton,
 } from './ContactEditForm.styles';
 
 import placeholderUserAvatar from '../../assets/images/default-user-avatar.jpg';
-import getBase64Image from '../../utils/getBase64Image';
 import { useContactsContext } from '../../context/ContactsContext';
 
 interface ValidationErrors {
@@ -38,11 +25,11 @@ interface ValidationErrors {
 }
 
 interface ContactInfo {
-  id: number;
+  id: string;
   name: string;
   contact: string;
   email: string;
-  picture: string;
+  picture: any;
 }
 
 interface ContactEditFormProps {
@@ -81,17 +68,19 @@ const ContactEditForm: React.FC<ContactEditFormProps> = ({ contact }) => {
 
   const handleAvatarChange = useCallback(
     // eslint-disable-next-line consistent-return
-    (e: ChangeEvent<HTMLInputElement>) => {
+    async (e: ChangeEvent<HTMLInputElement>) => {
       setIsLoadingAvatar(true);
       if (e.target!.files![0]) {
-        console.log(e.target!.files![0]);
-        const picture = getBase64Image(e.target!.files![0]);
-
-        console.log(picture);
-
-        setUserInfo({
-          ...userInfo,
-          picture,
+        new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(e.target!.files![0]);
+          reader.onload = () => resolve(reader.result);
+        }).then(result => {
+          console.log(result);
+          setUserInfo({
+            ...userInfo,
+            picture: result,
+          });
         });
         setIsLoadingAvatar(false);
       }
@@ -119,6 +108,7 @@ const ContactEditForm: React.FC<ContactEditFormProps> = ({ contact }) => {
           title: `<span style="color: white">${err}<span> `,
           background: '#e83f5b',
           iconColor: 'white',
+          timer: 4000,
         });
       }
     },

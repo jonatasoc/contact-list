@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { createContext, useCallback, useContext, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 interface UserInfo {
-  id: number;
+  id: string;
   name: string;
   contact: string;
   email: string;
-  picture: string;
+  picture: any;
 }
 
 interface AuthContextData {
   contacts: UserInfo[];
-  removeContact(contactId: number): void;
+  removeContact(contactId: string): void;
   addContact(contact: UserInfo): void;
   updateContact(contact: UserInfo): void;
 }
@@ -32,14 +33,14 @@ const ContactsProvider: React.FC = ({ children }) => {
 
     const defaultContacts = [
       {
-        id: 1,
+        id: uuidv4(),
         name: 'Jonatas de Oliveira Coelho',
         contact: '55 61 98120-0652',
         email: 'jonatas.oliveiracoelho@gmail.com',
         picture: 'https://avatars.githubusercontent.com/u/16616459?v=4',
       },
       {
-        id: 2,
+        id: uuidv4(),
         name: 'Arthur Serafim',
         contact: '55 61 98123-4567',
         email: 'arthurserafim@gmail.com',
@@ -70,7 +71,7 @@ const ContactsProvider: React.FC = ({ children }) => {
       }
 
       // eslint-disable-next-line no-param-reassign
-      newContact.id = contacts.length + 1;
+      newContact.id = uuidv4();
 
       contacts.push(newContact);
 
@@ -82,7 +83,7 @@ const ContactsProvider: React.FC = ({ children }) => {
     }
   }, []);
 
-  const removeContact = useCallback(async (contactId: number) => {
+  const removeContact = useCallback(async (contactId: string) => {
     try {
       const contacts: UserInfo[] = JSON.parse(
         localStorage.getItem('@ContactList: contacts') || '[]',
@@ -116,19 +117,19 @@ const ContactsProvider: React.FC = ({ children }) => {
       const contacts: UserInfo[] = JSON.parse(
         localStorage.getItem('@ContactList: contacts') || '[]',
       );
-      console.log(contacts);
-      let contactToEdit = contacts.filter(
+
+      const contactToEdit = contacts.filter(
         contact => contact.id === contactNewInfo.id,
       );
 
-      contactToEdit = { ...contactNewInfo };
+      console.log(contactToEdit);
 
       localStorage.setItem(
         '@ContactList: contacts',
-        JSON.stringify({ ...contacts, contactToEdit }),
+        JSON.stringify([...contacts, ...contactToEdit]),
       );
 
-      setData([...contacts, ...contactNewInfo]);
+      setData([...contacts, ...contactToEdit]);
     } catch (err) {
       throw new Error(err);
     }

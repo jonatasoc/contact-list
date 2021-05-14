@@ -15,7 +15,7 @@ import {
 import { useContactsContext } from '../../context/ContactsContext';
 
 interface ContactCardProp {
-  contact: { id: number; name: string; picture: string };
+  contact: { id: string; name: string; picture: string };
 }
 
 const ContactCard: React.FC<ContactCardProp> = ({ contact }) => {
@@ -23,7 +23,7 @@ const ContactCard: React.FC<ContactCardProp> = ({ contact }) => {
   const { removeContact } = useContactsContext();
 
   const handleDelete = useCallback(
-    (contactId: number) => {
+    (contactId: string) => {
       MySwal.fire({
         title: <p>Want to delete?</p>,
         showCancelButton: true,

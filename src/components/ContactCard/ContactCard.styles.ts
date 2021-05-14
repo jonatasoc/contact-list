@@ -13,6 +13,10 @@ export const Container = styled(Card)`
 
   margin-top: 15px;
 
+  &:first-child {
+    margin-top: 30px;
+  }
+
   div:first-child {
     display: flex;
     align-items: center;

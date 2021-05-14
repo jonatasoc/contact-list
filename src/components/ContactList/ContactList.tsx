@@ -8,7 +8,7 @@ import ContactCard from '../ContactCard';
 import { useContactsContext } from '../../context/ContactsContext';
 
 interface ContactInfo {
-  id: number;
+  id: string;
   name: string;
   contact: string;
   email: string;
