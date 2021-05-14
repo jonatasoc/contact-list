@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 import {
   Container,
@@ -10,12 +12,33 @@ import {
   EditIcon,
   DeleteIcon,
 } from './ContactCard.styles';
+import { useContactsContext } from '../../context/ContactsContext';
 
 interface ContactCardProp {
   contact: { id: number; name: string; picture: string };
 }
 
 const ContactCard: React.FC<ContactCardProp> = ({ contact }) => {
+  const MySwal = withReactContent(Swal);
+  const { removeContact } = useContactsContext();
+
+  const handleDelete = useCallback(
+    (contactId: number) => {
+      MySwal.fire({
+        title: <p>Want to delete?</p>,
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonColor: '#e83f5b',
+      }).then(result => {
+        if (result.isConfirmed) {
+          removeContact(contactId);
+          Swal.fire('Contact Deleted!', '', 'success');
+        }
+      });
+    },
+    [MySwal, removeContact],
+  );
+
   return (
     <Container>
       <Link to={`/contact/${contact.id}`}>
@@ -29,7 +52,13 @@ const ContactCard: React.FC<ContactCardProp> = ({ contact }) => {
               <EditIcon size={20} />
             </Button>
           </Link>
-          <Button size="small">
+          <Button
+            size="small"
+            onClick={e => {
+              e.preventDefault();
+              handleDelete(contact.id);
+            }}
+          >
             <DeleteIcon size={20} />
           </Button>
         </CardActions>
