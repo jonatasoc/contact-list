@@ -26,11 +26,11 @@ const ContactsProvider: React.FC = ({ children }) => {
       localStorage.getItem('@ContactList: contacts') || '[]',
     );
 
-    if (contacts) {
+    if (contacts && contacts.length > 0) {
       return contacts;
     }
 
-    return [
+    const defaultContacts = [
       {
         id: 1,
         name: 'Jonatas de Oliveira Coelho',
@@ -46,6 +46,13 @@ const ContactsProvider: React.FC = ({ children }) => {
         picture: 'https://avatars.githubusercontent.com/u/45845759?v=4',
       },
     ];
+
+    localStorage.setItem(
+      '@ContactList: contacts',
+      JSON.stringify(defaultContacts),
+    );
+
+    return defaultContacts;
   });
 
   const addContact = useCallback(async (newContact: UserInfo) => {
