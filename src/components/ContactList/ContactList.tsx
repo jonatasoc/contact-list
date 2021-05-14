@@ -1,63 +1,36 @@
-import React, { useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { FiPlus } from 'react-icons/fi';
 import { useHistory } from 'react-router';
 
-import {
-  Button,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from '@material-ui/core';
-import * as Yup from 'yup';
-import { MdSend } from 'react-icons/md';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-
-import { Container } from './ContactList.styles';
-import api from '../../services/api';
+import { Container, AddContactButton } from './ContactList.styles';
 import ContactCard from '../ContactCard';
+import { useContactsContext } from '../../context/ContactsContext';
 
-interface UserInfo {
-  id: string;
+interface ContactInfo {
+  id: number;
   name: string;
   contact: string;
   email: string;
   picture: string;
 }
 
-interface ValidationErrors {
-  [key: string]: string;
-}
-
-const contacts = [
-  'AB',
-  'BC',
-  'MB',
-  'NB',
-  'NL',
-  'NT',
-  'NU',
-  'ON',
-  'PE',
-  'SK',
-  'QC',
-  'YT',
-];
-
 const ContactList: React.FC = () => {
-  const [userInfo, setUserInfo] = useState({} as UserInfo);
-  const [cities, setCities] = useState([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [validationErros, setValidationErros] = useState(
-    {} as ValidationErrors,
-  );
+  const [contactsData, setContactsData] = useState<ContactInfo[]>([]);
+  const { contacts } = useContactsContext();
 
-  const history = useHistory();
+  useEffect(() => {
+    setContactsData(contacts);
+  }, [contacts]);
 
   return (
     <Container>
-      <ContactCard />
+      {contactsData.map(contact => (
+        <ContactCard contact={contact} />
+      ))}
+      <AddContactButton size="medium" color="secondary" aria-label="add">
+        <FiPlus size={35} />
+      </AddContactButton>
     </Container>
   );
 };

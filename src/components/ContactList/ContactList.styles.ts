@@ -1,31 +1,20 @@
 import styled from 'styled-components';
+import Fab from '@material-ui/core/Fab';
 
 export const Container = styled.div`
-  width: 80%;
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  max-width: 400px;
+  margin-left: 20px;
+
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+`;
 
-  .MuiFormControl-root {
-    width: 100%;
-    margin-bottom: 15px;
-  }
-
-  .MuiButton-root {
-    margin-top: 25px;
-  }
-
-  .lds-dual-ring {
-    animation: lds-dual-ring 1.2s linear infinite;
-  }
-
-  @keyframes lds-dual-ring {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
+export const AddContactButton = styled(Fab)`
+  left: -9px;
+  position: absolute;
+  top: -35px;
 `;
