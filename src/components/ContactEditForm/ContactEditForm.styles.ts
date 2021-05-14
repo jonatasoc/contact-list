@@ -26,13 +26,22 @@ export const Container = styled(Card)`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .MuiFormControl-root.MuiTextField-root {
+      width: 100%;
+    }
+
+    .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-formControl {
+      margin-bottom: 10px;
+    }
   }
 `;
 
 export const EditAvatarContainer = styled.div`
   position: relative;
+  margin-bottom: 40px;
 
-  @media only screen and (max-width: 972px) {
+  @media only screen and (max-width: 600px) {
     margin: 0 auto;
   }
 `;
@@ -95,6 +104,7 @@ export const UserContactDetails = styled.p`
 `;
 
 export const ButtonsContainer = styled.div`
+  margin-top: 20px;
   display: flex;
   align-items: center;
 
@@ -107,7 +117,6 @@ export const SaveButton = styled(Button)`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 80px;
   color: var(--white);
   background-color: var(--blue);
 
@@ -117,7 +126,6 @@ export const BackButton = styled(Button)`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 80px;
   color: var(--text-light);
 
   font-size: 1rem;

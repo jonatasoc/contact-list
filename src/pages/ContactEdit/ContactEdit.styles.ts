@@ -18,6 +18,6 @@ export const Title = styled.p`
   text-align: center;
   padding-top: 40px;
 
-  font-size: 30px;
+  font-size: 1.4rem;
   letter-spacing: 1px;
 `;
