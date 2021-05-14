@@ -1,12 +1,18 @@
-export default function getBase64Image(img: HTMLImageElement): string {
+export default function getBase64Image(img: any): string {
   const canvas = document.createElement('canvas');
-  canvas.width = img.width;
-  canvas.height = img.height;
-
+  const image = new Image();
   const ctx = canvas.getContext('2d');
-  ctx?.drawImage(img, 0, 0);
 
-  const dataURL = canvas.toDataURL('image/png');
+  let imageBase64: any;
 
-  return dataURL.replace(/^data:image\/(png|jpg);base64,/, '');
+  image.onload = () => {
+    canvas.width = image.width;
+    canvas.height = image.height;
+
+    ctx?.drawImage(image, 0, 0);
+
+    console.log(canvas.toDataURL('image/jpeg'));
+  };
+
+  return imageBase64;
 }

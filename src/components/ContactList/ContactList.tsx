@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { FiPlus } from 'react-icons/fi';
-import { useHistory } from 'react-router';
 
 import { Container, AddContactButton } from './ContactList.styles';
 import ContactCard from '../ContactCard';
@@ -26,11 +26,13 @@ const ContactList: React.FC = () => {
   return (
     <Container>
       {contactsData.map(contact => (
-        <ContactCard contact={contact} />
+        <ContactCard contact={contact} key={contact.id} />
       ))}
-      <AddContactButton size="medium" color="secondary" aria-label="add">
-        <FiPlus size={35} />
-      </AddContactButton>
+      <Link to="/contact/add">
+        <AddContactButton size="medium" color="secondary" aria-label="add">
+          <FiPlus size={35} />
+        </AddContactButton>
+      </Link>
     </Container>
   );
 };
