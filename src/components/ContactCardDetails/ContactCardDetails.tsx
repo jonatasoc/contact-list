@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 
@@ -10,30 +10,53 @@ import {
   UserInfo,
   BackButton,
 } from './ContactCardDetails.styles';
+import { useContactsContext } from '../../context/ContactsContext';
 
-const img = 'https://avatars.githubusercontent.com/u/16616459?v=4';
+interface ContactInfo {
+  id: number;
+  name: string;
+  contact: string;
+  email: string;
+  picture: string;
+}
 
 const ContactCardDetails: React.FC = () => {
+  const [contact, setContact] = useState({} as ContactInfo);
+
   const { id } = useParams<{ id: string }>();
+  const { contacts } = useContactsContext();
+
+  useEffect(() => {
+    console.log(contacts);
+    const findedContact = contacts.find(item => String(item.id) === id);
+
+    if (!findedContact) return;
+
+    setContact(findedContact);
+  }, [id, contacts]);
 
   return (
     <Container>
-      <UserAvatar src={img} alt="Jonatas de Oliveira Coelho" />
-      <UserInfo>
-        <UserName>Jonatas de Oliveira Coelho</UserName>
-        <UserContactDetails>
-          <strong>Contact: </strong> 55 61981200652
-        </UserContactDetails>
-        <UserContactDetails>
-          <strong>Email: </strong> jonatas.oliveiracoelho@gmail.com
-        </UserContactDetails>
-      </UserInfo>
-      <Link to="/">
-        <BackButton>
-          <FiArrowLeft size={25} style={{ marginRight: '10px' }} />
-          Back
-        </BackButton>
-      </Link>
+      {contact && (
+        <>
+          <UserAvatar src={contact.picture} alt={contact.name} />
+          <UserInfo>
+            <UserName>{contact && contact.name} </UserName>
+            <UserContactDetails>
+              <strong>Contact: </strong> {contact && contact.contact}
+            </UserContactDetails>
+            <UserContactDetails>
+              <strong>Email: </strong> {contact && contact.email}
+            </UserContactDetails>
+          </UserInfo>
+          <Link to="/">
+            <BackButton>
+              <FiArrowLeft size={25} style={{ marginRight: '10px' }} />
+              Back
+            </BackButton>
+          </Link>
+        </>
+      )}
     </Container>
   );
 };
