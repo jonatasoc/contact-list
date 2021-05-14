@@ -12,11 +12,12 @@ const GlobalStyle = createGlobalStyle`
     --background: #f2f3f5;
     --gray-line: #dcdde0;
     --text: #666666;
+    --text-light: #0000008a;
     --text-highlight: #b3b9ff;
     --title: #2e384d;
     --red: #e83f5b;
     --green: #4cd62b;
-    --blue: #5965e0;
+    --blue: #747bf9;
     --white: #fff;
   }
 
@@ -54,8 +55,9 @@ const GlobalStyle = createGlobalStyle`
   body, input, button {
     font-size: 14px;
     font-weight: 400;
-    font-family: 'Roboto', sans-serif;
-  }
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    }
+
 
   button {
     cursor: pointer;
@@ -64,6 +66,19 @@ const GlobalStyle = createGlobalStyle`
   a {
     color: inherit;
     text-decoration: none;
+  }
+
+  .lds-dual-ring {
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
+
+  @keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 
 `;
