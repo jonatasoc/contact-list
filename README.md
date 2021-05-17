@@ -4,7 +4,7 @@
 
 <p align="center">
    See the project on production:
-   <a href="https://nlw-moveit-two.vercel.app/" rel="noopener noreferrer" target='_blank'>https://jonatasoc-contact-list.netlify.app/</a>
+   <a href="https://jonatasoc-contact-list.netlify.app/" rel="noopener noreferrer" target='_blank'>https://jonatasoc-contact-list.netlify.app/</a>
 </p>
 
 ---
