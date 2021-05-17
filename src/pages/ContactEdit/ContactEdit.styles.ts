@@ -20,4 +20,9 @@ export const Title = styled.p`
 
   font-size: 1.4rem;
   letter-spacing: 1px;
+
+  @media (max-width: 600px) {
+    padding-top: 10px;
+    height: 50px;
+  }
 `;
