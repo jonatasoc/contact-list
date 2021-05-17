@@ -14,6 +14,8 @@ import {
 } from './ContactCard.styles';
 import { useContactsContext } from '../../context/ContactsContext';
 
+import placeholderUserAvatar from '../../assets/images/default-user-avatar.jpg';
+
 interface ContactCardProp {
   contact: { id: string; name: string; picture: string };
 }
@@ -43,7 +45,10 @@ const ContactCard: React.FC<ContactCardProp> = ({ contact }) => {
     <Container>
       <Link to={`/contact/${contact.id}`}>
         <div>
-          <UserAvatar src={contact.picture} alt={contact.name} />
+          <UserAvatar
+            src={contact.picture ? contact.picture : placeholderUserAvatar}
+            alt={contact.name}
+          />
           <UserName>{contact.name}</UserName>
         </div>
         <CardActions>

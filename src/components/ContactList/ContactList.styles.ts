@@ -11,10 +11,19 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 600px) {
+    margin-left: 0;
+    padding: 0 8px;
+  }
 `;
 
 export const AddContactButton = styled(Fab)`
   left: -9px;
   position: absolute;
   top: -35px;
+
+  @media (max-width: 600px) {
+    left: 4px;
+  }
 `;

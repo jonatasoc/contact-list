@@ -11,7 +11,7 @@ import withReactContent from 'sweetalert2-react-content';
 
 import {
   Container,
-  EditAvatarContainer,
+  AddAvatarContainer,
   AvatarInputButton,
   UserAvatar,
   ButtonsContainer,
@@ -62,7 +62,7 @@ const ContactAddForm: React.FC = () => {
     async (e: ChangeEvent<HTMLInputElement>) => {
       setIsLoadingAvatar(true);
       if (e.target!.files![0]) {
-        new Promise((resolve, reject) => {
+        new Promise(resolve => {
           const reader = new FileReader();
           reader.readAsDataURL(e.target!.files![0]);
           reader.onload = () => resolve(reader.result);
@@ -109,7 +109,7 @@ const ContactAddForm: React.FC = () => {
   return (
     <Container>
       <form onSubmit={(e: any) => handleSubmit(e)}>
-        <EditAvatarContainer>
+        <AddAvatarContainer>
           <UserAvatar
             src={userInfo.picture ? userInfo.picture : placeholderUserAvatar}
             alt={userInfo.picture ? userInfo.name : ''}
@@ -129,7 +129,7 @@ const ContactAddForm: React.FC = () => {
               accept="image/x-png,image/jpeg, image/jpg"
             />
           </AvatarInputButton>
-        </EditAvatarContainer>
+        </AddAvatarContainer>
 
         <TextField
           label="Name"

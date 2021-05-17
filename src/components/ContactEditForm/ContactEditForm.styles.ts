@@ -41,8 +41,8 @@ export const EditAvatarContainer = styled.div`
   position: relative;
   margin-bottom: 40px;
 
-  @media only screen and (max-width: 600px) {
-    margin: 0 auto;
+  @media (max-width: 600px) {
+    margin: 0 auto 20px auto;
   }
 `;
 

@@ -17,8 +17,9 @@ import {
   BackButton,
 } from './ContactEditForm.styles';
 
-import placeholderUserAvatar from '../../assets/images/default-user-avatar.jpg';
 import { useContactsContext } from '../../context/ContactsContext';
+
+import placeholderUserAvatar from '../../assets/images/default-user-avatar.jpg';
 
 interface ValidationErrors {
   [key: string]: string;
@@ -70,13 +71,14 @@ const ContactEditForm: React.FC<ContactEditFormProps> = ({ contact }) => {
     // eslint-disable-next-line consistent-return
     async (e: ChangeEvent<HTMLInputElement>) => {
       setIsLoadingAvatar(true);
-      if (e.target!.files![0]) {
-        new Promise((resolve, reject) => {
+      if (e.target.files && e.target.files[0]) {
+        const picutre = e.target.files[0];
+
+        new Promise(resolve => {
           const reader = new FileReader();
-          reader.readAsDataURL(e.target!.files![0]);
+          reader.readAsDataURL(picutre);
           reader.onload = () => resolve(reader.result);
         }).then(result => {
-          console.log(result);
           setUserInfo({
             ...userInfo,
             picture: result,
@@ -85,7 +87,7 @@ const ContactEditForm: React.FC<ContactEditFormProps> = ({ contact }) => {
         setIsLoadingAvatar(false);
       }
     },
-    [userInfo.picture],
+    [userInfo],
   );
 
   const handleSubmit = useCallback(
@@ -93,7 +95,7 @@ const ContactEditForm: React.FC<ContactEditFormProps> = ({ contact }) => {
       e.preventDefault();
 
       try {
-        await updateContact(userInfo);
+        updateContact(userInfo);
         await Toast.fire({
           icon: 'success',
           title: '<span style="color: white">Saved!<span> ',
@@ -134,6 +136,7 @@ const ContactEditForm: React.FC<ContactEditFormProps> = ({ contact }) => {
               type="file"
               name=""
               id="avatar"
+              onLoad={handleAvatarChange}
               onChange={handleAvatarChange}
               accept="image/x-png,image/jpeg, image/jpg"
             />
