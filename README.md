@@ -65,7 +65,6 @@ A simple contact list using localStorage to store users data.
 | [react-icons](https://react-icons.github.io/react-icons/)          |
 | [SweetAlert2](https://sweetalert2.github.io/recipe-gallery/)       |
 |                                                                    |
-|                                                                    |
 
 # :construction_worker: Installation
 
