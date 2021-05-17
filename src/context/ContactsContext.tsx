@@ -118,18 +118,17 @@ const ContactsProvider: React.FC = ({ children }) => {
         localStorage.getItem('@ContactList: contacts') || '[]',
       );
 
-      const contactToEditIndex = contacts.findIndex(
-        contact => contact.id === contactNewInfo.id,
-      );
 
-      console.log(contactToEdit);
+      const newData = contacts.map(
+        contact => contact.id === contactNewInfo.id 
+        ? {...contact, contactNewInfo} : contact
+      );
 
       localStorage.setItem(
         '@ContactList: contacts',
-        JSON.stringify([...contacts, contacts[contactToEditIndex]: ...contactToEdit]),
-      );
+        JSON.stringify(newData);
 
-      setData([...contacts, contacts[contactToEditIndex]: ...contactToEdit]);
+      setData(newData);
     } catch (err) {
       throw new Error(err);
     }
