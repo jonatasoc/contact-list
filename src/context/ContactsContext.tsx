@@ -126,7 +126,8 @@ const ContactsProvider: React.FC = ({ children }) => {
 
       localStorage.setItem(
         '@ContactList: contacts',
-        JSON.stringify(newData);
+        JSON.stringify(newData),
+      );
 
       setData(newData);
     } catch (err) {
